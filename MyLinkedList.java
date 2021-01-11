@@ -33,30 +33,28 @@ public class MyLinkedList{
         Node curr = start;
         Node newElement = new Node(value);  
         Node elementAfter = getNode(index);
-        //beginning 
-        if (index == 0) {
-            start = newElement;
-            newElement.setNext(elementAfter);
-            elementAfter.setPrev(newElement);
-        }
-        if (index == size()-1) {
-            end = newElement;
-            newElement.setNext(elementAfter);
-            elementAfter.setPrev(newElement);
-        }
         //middle  
         while (curr != null) {
+            //beginning 
+            if (index == 0) {
+                start = newElement;
+            }
+            //end
+            if (index == size()-1) {
+                newElement.setPrev(getNode(size()-2));
+            }
             if (pos == index-1) {
                 curr.setNext(newElement);
-
                 newElement.setPrev(curr);
+            }
+            if (index == 0 || index == size()-1 || pos == index-1) {
                 newElement.setNext(elementAfter);
-
                 elementAfter.setPrev(newElement);
             }
             curr = curr.next();
             pos++;
         }
+        System.out.println(end.value());
     }
     public String get(int index) {
         int pos = 0;
