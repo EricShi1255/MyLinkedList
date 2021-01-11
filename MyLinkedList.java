@@ -1,3 +1,4 @@
+import java.util.IllegalArgumentException;
 public class MyLinkedList{
     private int size;
     private Node start,end;  
@@ -30,6 +31,9 @@ public class MyLinkedList{
         return true;
     }
     public void add(int index, String value) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Index out of Range!");)
+        }
         int pos = 0;
         Node curr = start;
         Node newElement = new Node(value);  
@@ -58,6 +62,9 @@ public class MyLinkedList{
         size();
     }
     public String get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Index out of Range!");)
+        }
         int pos = 0;
         String result = "";
         Node curr = start;
@@ -70,6 +77,7 @@ public class MyLinkedList{
         return result;
     }
     private Node getNode(int index) {
+        
         int pos = 0;
         Node result = new Node("");
         Node curr = start;
@@ -86,6 +94,9 @@ public class MyLinkedList{
         return result;
     }
     public String set(int index, String value) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Index out of Range!");)
+        }
         int pos = 0;
         String result = "";
         Node curr = start;
@@ -112,6 +123,9 @@ public class MyLinkedList{
         return(result + "]");
     }
     public String remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Index out of Range!");)
+        }
         int pos = 0;
         Node curr = start;
         String removed = getNode(index).value();
