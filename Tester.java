@@ -19,6 +19,8 @@ public class Tester {
         Units.add("egg");
         Units.set(2, "cherry");
         Units.add(2, "asushin");
+        Units.add(0,"first");
+        Units.add(6, "EGG2");
         System.out.println(Units.toString());
     }
 }

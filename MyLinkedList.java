@@ -12,6 +12,7 @@ public class MyLinkedList{
             curr = curr.next();
             count++;
         }
+        size = count;
         return count;
     }
     public boolean add(String value) {
@@ -32,17 +33,26 @@ public class MyLinkedList{
         Node curr = start;
         Node newElement = new Node(value);  
         Node elementAfter = getNode(index);
-        System.out.println(elementAfter.value());
-        System.out.println(toString());  
+        //beginning 
+        if (index == 0) {
+            start = newElement;
+            newElement.setNext(elementAfter);
+            elementAfter.setPrev(newElement);
+        }
+        if (index == size()-1) {
+            end = newElement;
+            newElement.setNext(elementAfter);
+            elementAfter.setPrev(newElement);
+        }
+        //middle  
         while (curr != null) {
-            if (pos == index-1 ) {
+            if (pos == index-1) {
                 curr.setNext(newElement);
-                System.out.println(curr.next().value());
+
                 newElement.setPrev(curr);
                 newElement.setNext(elementAfter);
-                System.out.println(newElement.next().value());  
+
                 elementAfter.setPrev(newElement);
-                System.out.println(toString());
             }
             curr = curr.next();
             pos++;
@@ -66,6 +76,7 @@ public class MyLinkedList{
         Node curr = start;
         while (curr != null) {
             if (pos == index) {
+               //this is to keep the properties the same 
                result.setValue(curr.value());
                result.setNext(curr.next());
                result.setPrev(curr.prev());
