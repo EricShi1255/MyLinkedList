@@ -54,7 +54,6 @@ public class MyLinkedList{
             curr = curr.next();
             pos++;
         }
-        System.out.println(end.value());
     }
     public String get(int index) {
         int pos = 0;
@@ -110,5 +109,30 @@ public class MyLinkedList{
         }
         return(result + "]");
     }
- //Any helper method that returns a Node object MUST BE PRIVATE!
+    public String remove(int index) {
+        int pos = 0;
+        Node curr = start;
+        String removed = getNode(index).value();
+        Node elementBefore = getNode(index-1);
+        Node elementAfter = getNode(index+1);
+        //middle  
+        while (curr != null) {
+            //beginning 
+            if (index == 0) {
+                start = elementAfter;
+            }
+            //end
+            if (index == size()-1) {
+                end = elementBefore;
+            }
+            if (pos == index-1) {
+                curr.setNext(elementAfter);
+                elementAfter.setPrev(curr);
+            }
+            curr = curr.next();
+            pos++;
+        }
+        return removed;
+    }
+   
 }
