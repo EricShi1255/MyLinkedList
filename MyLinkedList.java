@@ -28,7 +28,25 @@ public class MyLinkedList{
         return true;
     }
     public void add(int index, String value) {
-        //to do
+        int pos = 0;
+        Node curr = start;
+        Node newElement = new Node(value);  
+        Node elementAfter = getNode(index);
+        System.out.println(elementAfter.value());
+        System.out.println(toString());  
+        while (curr != null) {
+            if (pos == index-1 ) {
+                curr.setNext(newElement);
+                System.out.println(curr.next().value());
+                newElement.setPrev(curr);
+                newElement.setNext(elementAfter);
+                System.out.println(newElement.next().value());  
+                elementAfter.setPrev(newElement);
+                System.out.println(toString());
+            }
+            curr = curr.next();
+            pos++;
+        }
     }
     public String get(int index) {
         int pos = 0;
@@ -39,6 +57,21 @@ public class MyLinkedList{
                result =  curr.value();
             }
             curr = curr.next();
+        }
+        return result;
+    }
+    private Node getNode(int index) {
+        int pos = 0;
+        Node result = new Node("");
+        Node curr = start;
+        while (curr != null) {
+            if (pos == index) {
+               result.setValue(curr.value());
+               result.setNext(curr.next());
+               result.setPrev(curr.prev());
+            }
+            curr = curr.next();
+            pos++;
         }
         return result;
     }
