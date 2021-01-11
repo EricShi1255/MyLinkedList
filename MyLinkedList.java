@@ -26,6 +26,7 @@ public class MyLinkedList{
             end.setNext(added);
             end = added;
         }
+        size();
         return true;
     }
     public void add(int index, String value) {
@@ -54,6 +55,7 @@ public class MyLinkedList{
             curr = curr.next();
             pos++;
         }
+        size();
     }
     public String get(int index) {
         int pos = 0;
@@ -132,7 +134,17 @@ public class MyLinkedList{
             curr = curr.next();
             pos++;
         }
+        size();
         return removed;
+    }
+    public void extend(MyLinkedList other){
+        /*
+        *@postcondition: All of the elements from other are removed from the other, and connected to the end of this linked list.
+        *@postcondition: The size of other is reduced to 0.
+        *@postcondition: The size of this is now the combined sizes of both original lists
+        */
+        end.setNext(other.getNode(0));
+
     }
    
 }
