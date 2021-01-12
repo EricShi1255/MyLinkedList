@@ -30,29 +30,37 @@ public class MyLinkedList{
         return true;
     }
     public void add(int index, String value) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Index out of Range!");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
         Node curr = start;
         Node newElement = new Node(value);  
-        Node elementAfter = getNode(index);
-        //middle  
+        //empty
+        if (start == null) {
+            start = newElement;
+            end = newElement;
+        }
+        //beginning 
+        else if (index == 0) {
+            newElement.setNext(start);
+            start.setPrev(newElement);
+            start = newElement;
+        }
+        //end
+        else if (index == size()) {
+            end.setNext(newElement);
+            newElement.setPrev(end);
+            end = newElement;
+
+        }
         while (curr != null) {
-            //beginning 
-            if (index == 0) {
-                start = newElement;
-            }
-            //end
-            if (index == size()-1) {
-                newElement.setPrev(getNode(size()-2));
-            }
+            //middle
             if (pos == index-1) {
+                Node elementAfter = getNode(index);  
+                newElement.setNext(elementAfter);
                 curr.setNext(newElement);
                 newElement.setPrev(curr);
-            }
-            if (index == 0 || index == size()-1 || pos == index-1) {
-                newElement.setNext(elementAfter);
                 elementAfter.setPrev(newElement);
             }
             curr = curr.next();
@@ -61,8 +69,8 @@ public class MyLinkedList{
         size();
     }
     public String get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Index out of Range!");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
         String result = "";
@@ -72,6 +80,7 @@ public class MyLinkedList{
                result =  curr.value();
             }
             curr = curr.next();
+            pos++;
         }
         return result;
     }
@@ -93,8 +102,8 @@ public class MyLinkedList{
         return result;
     }
     public String set(int index, String value) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Index out of Range!");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
         String result = "";
@@ -122,8 +131,8 @@ public class MyLinkedList{
         return(result + "]");
     }
     public String remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IllegalArgumentException("Index out of Range!");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
         Node curr = start;
@@ -159,5 +168,16 @@ public class MyLinkedList{
         end.setNext(other.getNode(0));
 
     }
-   
+    public String toStringReversed() {
+        String result = "[";
+        Node curr = end;
+        while (curr != null) {
+            result += curr.value();
+            if (curr.prev() != null) {
+                result += ", ";
+            }
+            curr = curr.prev();
+        }
+        return(result + "]");
+    }
 }
