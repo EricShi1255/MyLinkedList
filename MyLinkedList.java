@@ -27,52 +27,44 @@ public class MyLinkedList{
             added.setPrev(end);
             end = added;
         }
-        size();
+        size++;
         return true;
     }
+    
     public void add(int index, String value) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
-        int pos = 0;
-        Node curr = start;
         Node newElement = new Node(value);  
-        //empty
-        if (start == null) {
-            start = newElement;
-            end = newElement;
-        }
-        //beginning 
-        else if (index == 0) {
-            newElement.setNext(start);
-
-            start.setPrev(newElement);
-            start = newElement;
-        }
+        //empty && beginning
+        if (index == 0) {
+            if (size() > 0) {
+              newElement.setNext(start);
+              start.setPrev(newElement);
+              start = newElement;
+            }
+            else {
+              start = newElement;
+              end = newElement;
+            }
+          }
         //end
         else if (index == size()) {
-            end.setNext(newElement);
-
             newElement.setPrev(end);
+            end.setNext(newElement);
             end = newElement;
-
         }
         else {
-            while (curr != null) {
-                //middle
-                if (pos == index-1) {
-                    Node elementAfter = getNode(index);  
-                    curr.setNext(newElement);
-                    newElement.setNext(elementAfter);
-                    newElement.setPrev(curr);
-                    elementAfter.setPrev(newElement);
-                }
-                curr = curr.next();
-                pos++;
-            }
+            Node prev = getNode(index-1);
+            Node after = getNode(index);  
+            newElement.setNext(after);
+            prev.setNext(newElement);
+            newElement.setPrev(prev);
+            after.setPrev(newElement);
         }
         size();
     }
+    
     public String get(int index) {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index out of Range!");
@@ -97,14 +89,12 @@ public class MyLinkedList{
         while (curr != null) {
             if (pos == index) {
                //this is to keep the properties the same 
-               result.setValue(curr.value());
-               result.setNext(curr.next());
-               result.setPrev(curr.prev());
+               return curr;
             }
             curr = curr.next();
             pos++;
         }
-        return result;
+        return result; //should be unreachable
     }
     public String set(int index, String value) {
         if (index < 0 || index >= size) {
@@ -140,27 +130,27 @@ public class MyLinkedList{
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
         String removed = get(index);
-        Node elementBefore = getNode(index-1);
-        Node elementAfter = getNode(index+1); 
+        Node prev = getNode(index-1);
+        Node after = getNode(index+1); 
         //null after removal
         if (size == 1) {
             start = null;
         }
          //beginning 
         else if (index == 0) {
-            start = elementAfter;
+            start = after;
             //start.setPrev(null);
         }
         //nd
         else if (index == size()-1) {
-            end = elementBefore;
+            end = prev;
             //end.setNext(null);
         } 
         else {
-            elementBefore.setNext(elementAfter);
-            elementAfter.setPrev(elementBefore);
+            prev.setNext(after);
+            after.setPrev(prev);
         }
-        size();
+        size--;
         return removed;
     }
     public void extend(MyLinkedList other){
