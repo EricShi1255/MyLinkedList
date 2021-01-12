@@ -45,12 +45,14 @@ public class MyLinkedList{
         //beginning 
         else if (index == 0) {
             newElement.setNext(start);
+
             start.setPrev(newElement);
             start = newElement;
         }
         //end
         else if (index == size()) {
             end.setNext(newElement);
+
             newElement.setPrev(end);
             end = newElement;
 
@@ -60,8 +62,8 @@ public class MyLinkedList{
                 //middle
                 if (pos == index-1) {
                     Node elementAfter = getNode(index);  
-                    newElement.setNext(elementAfter);
                     curr.setNext(newElement);
+                    newElement.setNext(elementAfter);
                     newElement.setPrev(curr);
                     elementAfter.setPrev(newElement);
                 }
@@ -140,16 +142,19 @@ public class MyLinkedList{
         String removed = get(index);
         Node elementBefore = getNode(index-1);
         Node elementAfter = getNode(index+1); 
-        //null
+        //null after removal
+        if (size == 1) {
+            start = null;
+        }
          //beginning 
-        if (index == 0) {
+        else if (index == 0) {
             start = elementAfter;
             //start.setPrev(null);
         }
         //nd
         else if (index == size()-1) {
             end = elementBefore;
-            end.setNext(null);
+            //end.setNext(null);
         } 
         else {
             elementBefore.setNext(elementAfter);
@@ -197,4 +202,5 @@ public class MyLinkedList{
         } 
         return(result + "]");
     }
+
 }
