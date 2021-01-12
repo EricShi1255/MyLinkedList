@@ -55,17 +55,19 @@ public class MyLinkedList{
             end = newElement;
 
         }
-        while (curr != null) {
-            //middle
-            if (pos == index-1) {
-                Node elementAfter = getNode(index);  
-                newElement.setNext(elementAfter);
-                curr.setNext(newElement);
-                newElement.setPrev(curr);
-                elementAfter.setPrev(newElement);
+        else {
+            while (curr != null) {
+                //middle
+                if (pos == index-1) {
+                    Node elementAfter = getNode(index);  
+                    newElement.setNext(elementAfter);
+                    curr.setNext(newElement);
+                    newElement.setPrev(curr);
+                    elementAfter.setPrev(newElement);
+                }
+                curr = curr.next();
+                pos++;
             }
-            curr = curr.next();
-            pos++;
         }
         size();
     }
@@ -138,13 +140,14 @@ public class MyLinkedList{
         String removed = get(index);
         Node elementBefore = getNode(index-1);
         Node elementAfter = getNode(index+1); 
+        //null
          //beginning 
         if (index == 0) {
             start = elementAfter;
-            start.setPrev(null);
+            //start.setPrev(null);
         }
-        //end
-        if (index == size()-1) {
+        //nd
+        else if (index == size()-1) {
             end = elementBefore;
             end.setNext(null);
         } 
