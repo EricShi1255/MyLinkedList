@@ -141,7 +141,7 @@ public class MyLinkedList{
          //beginning 
         else if (index == 0) {
             removed = start.value();
-            start = s.next();
+            start = start.next();
             start.setPrev(null);
             size--;
         }
