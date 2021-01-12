@@ -135,27 +135,22 @@ public class MyLinkedList{
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
-        int pos = 0;
-        Node curr = start;
-        String removed = getNode(index).value();
+        String removed = get(index);
         Node elementBefore = getNode(index-1);
-        Node elementAfter = getNode(index+1);
-        //middle  
-        while (curr != null) {
-            //beginning 
-            if (index == 0) {
-                start = elementAfter;
-            }
-            //end
-            if (index == size()-1) {
-                end = elementBefore;
-            }
-            if (pos == index-1) {
-                curr.setNext(elementAfter);
-                elementAfter.setPrev(curr);
-            }
-            curr = curr.next();
-            pos++;
+        Node elementAfter = getNode(index+1); 
+         //beginning 
+        if (index == 0) {
+            start = elementAfter;
+            start.setPrev(null);
+        }
+        //end
+        if (index == size()-1) {
+            end = elementBefore;
+            end.setNext(null);
+        } 
+        else {
+            elementBefore.setNext(elementAfter);
+            elementAfter.setPrev(elementBefore);
         }
         size();
         return removed;
@@ -166,8 +161,26 @@ public class MyLinkedList{
         *@postcondition: The size of other is reduced to 0.
         *@postcondition: The size of this is now the combined sizes of both original lists
         */
-        end.setNext(other.getNode(0));
-
+        if (size() == 0) {
+            start = other.start;
+            end = other.end;
+            size = other.size;
+            
+            other.size = 0;
+            other.start = null;
+            other.end = null;
+        }
+        else if (other.size == 0) {
+        }
+        else {
+            end.setNext(other.start); 
+            end = other.end;
+            size = size + other.size;
+            
+            other.size = 0;
+            other.start = null;
+            other.end = null;
+        }
     }
     public String toStringReversed() {
         String result = "[";
