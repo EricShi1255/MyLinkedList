@@ -125,32 +125,40 @@ public class MyLinkedList{
         }
         return(result + "]");
     }
+    
     public String remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
-        String removed = get(index);
-        Node prev = getNode(index-1);
-        Node after = getNode(index+1); 
+        String removed;
         //null after removal
         if (size == 1) {
+            removed = start.value();
             start = null;
+            end = null;
+            size = 0;
         }
          //beginning 
         else if (index == 0) {
-            start = after;
-            //start.setPrev(null);
+            removed = start.value();
+            start = s.next();
+            start.setPrev(null);
+            size--;
         }
-        //nd
+        //end
         else if (index == size()-1) {
-            end = prev;
-            //end.setNext(null);
+            removed = end.value();
+            end = end.prev();
+            end.setNext(null);
+            size--;
         } 
         else {
-            prev.setNext(after);
-            after.setPrev(prev);
+            removed = get(index);
+            Node ans = getNode(index);
+            ans.prev().setNext(ans.next());
+            ans.next().setPrev(ans.prev());
+            size--;
         }
-        size--;
         return removed;
     }
     public void extend(MyLinkedList other){
