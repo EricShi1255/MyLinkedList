@@ -24,6 +24,7 @@ public class MyLinkedList{
         }
         else {
             end.setNext(added);
+            added.setPrev(end);
             end = added;
         }
         size();
@@ -69,7 +70,7 @@ public class MyLinkedList{
         size();
     }
     public String get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
@@ -102,7 +103,7 @@ public class MyLinkedList{
         return result;
     }
     public String set(int index, String value) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
@@ -131,7 +132,7 @@ public class MyLinkedList{
         return(result + "]");
     }
     public String remove(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of Range!");
         }
         int pos = 0;
@@ -177,7 +178,7 @@ public class MyLinkedList{
                 result += ", ";
             }
             curr = curr.prev();
-        }
+        } 
         return(result + "]");
     }
 }
