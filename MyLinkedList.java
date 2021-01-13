@@ -180,6 +180,7 @@ public class MyLinkedList{
         }
         else {
             end.setNext(other.start); 
+            other.start.setPrev(end);
             end = other.end;
             size = size + other.size;
             
